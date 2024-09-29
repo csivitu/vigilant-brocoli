@@ -5,7 +5,7 @@ import os
 from utils import create_output_directory
 from reporting import log_summary, save_results
 
-def signal_handler(sig, frame):
+def signal_handler():
     
     print("\nProcess interrupted by user. Saving results and exiting...")
         
@@ -41,10 +41,7 @@ def main():
 
     except KeyboardInterrupt:
         
-        print("\nScan interrupted by user. Saving results and exiting...")
-        from config import global_results
-        save_results(global_results, args.output)  
-        log_summary()
+        signal_handler()
 
 if __name__ == "__main__":
     

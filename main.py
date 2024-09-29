@@ -3,7 +3,7 @@ import signal
 import sys
 import os
 from utils import create_output_directory
-from reporting import log_summary, save_results
+from reporting import log_summary, save_results, perform_scan  # <-- Import perform_scan FOR MISSING FUNCTION DEFINITION
 
 def signal_handler(sig, frame):
     
@@ -35,7 +35,7 @@ def main():
         create_output_directory(args.url)
         args.output = os.path.join(output_directory, args.output)
    
-        perform_scan(args)
+        perform_scan(args)  # This now has a valid definition imported
     
         log_summary()
 

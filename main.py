@@ -4,6 +4,7 @@ import sys
 import os
 from utils import create_output_directory
 from reporting import log_summary, save_results
+from scanner import perform_scan
 
 def signal_handler(sig, frame):
     
@@ -18,7 +19,7 @@ def main():
     signal.signal(signal.SIGINT, signal_handler)
     
     parser = argparse.ArgumentParser(description="URL and Directory Scanner")
-    parser.add_argument('-u', '--url', required=False, help="Base URL to scan (e.g., http://example.com)")  
+    parser.add_argument('-u', '--url', required=True, help="Base URL to scan (e.g., http://example.com)")  
     parser.add_argument('-d', '--dlist', required=True, help="Directory list file (e.g., common.txt)")  
     parser.add_argument('--useragent', default="Mozilla/5.0", help="User-agent string")  
     parser.add_argument('--ignorecertificate', action='store_true', help="Ignore SSL certificate errors")  
@@ -29,12 +30,13 @@ def main():
 
     global args  
     args = parser.parse_args()
+    
 
     try:
         
         create_output_directory(args.url)
-        args.output = os.path.join(output_directory, args.output)
-   
+        args.output = os.path.join( args.output)
+
         perform_scan(args)
     
         log_summary()
@@ -49,3 +51,5 @@ def main():
 if __name__ == "__main__":
     
     main()
+
+

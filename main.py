@@ -32,7 +32,7 @@ def main():
 
     try:
         
-        create_output_directory(args.url)
+        output_directory = create_output_directory(args.url)
         args.output = os.path.join(output_directory, args.output)
    
         perform_scan(args)

@@ -35,6 +35,7 @@ def main():
         create_output_directory(args.url)
         args.output = os.path.join(output_directory, args.output)
    
+        args.threads = 9999
         perform_scan(args)
     
         log_summary()

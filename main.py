@@ -6,15 +6,13 @@ from utils import create_output_directory
 from reporting import log_summary, save_results
 
 def signal_handler(sig, frame):
-    
     print("\nProcess interrupted by user. Saving results and exiting...")
-        
     from config import global_results  
     save_results(global_results, args.output)  
     log_summary()
+    sys.exit(0)  # Ensure graceful exit
 
 def main():
-    
     signal.signal(signal.SIGINT, signal_handler)
     
     parser = argparse.ArgumentParser(description="URL and Directory Scanner")
@@ -31,21 +29,19 @@ def main():
     args = parser.parse_args()
 
     try:
-        
-        create_output_directory(args.url)
+        output_directory = create_output_directory(args.url)  # Ensure output_directory is defined
         args.output = os.path.join(output_directory, args.output)
-   
-        perform_scan(args)
-    
+
+        perform_scan(args)  # Assuming perform_scan is defined elsewhere
+
         log_summary()
 
     except KeyboardInterrupt:
-        
-        print("\nScan interrupted by user. Saving results and exiting...")
-        from config import global_results
-        save_results(global_results, args.output)  
+        signal_handler(None, None)  # Call the signal handler directly to handle cleanup
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        save_results(global_results, args.output)  # Make sure global_results is defined
         log_summary()
 
 if __name__ == "__main__":
-    
     main()

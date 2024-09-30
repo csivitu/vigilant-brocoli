@@ -1,5 +1,5 @@
 import concurrent.futures
-from config import global_results, error_logs
+from config import global_results
 from utils import fetch_url, parse_ports, parse_directories,print_message
 
 def perform_scan(args):

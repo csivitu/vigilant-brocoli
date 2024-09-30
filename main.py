@@ -1,6 +1,6 @@
 import argparse
 import signal
-import sys
+
 import os
 from utils import create_output_directory
 from reporting import log_summary, save_results

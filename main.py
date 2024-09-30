@@ -4,6 +4,7 @@ import sys
 import os
 from utils import create_output_directory
 from reporting import log_summary, save_results
+from scanner import perform_scan
 
 def signal_handler(sig, frame):
     
@@ -32,7 +33,7 @@ def main():
 
     try:
         
-        create_output_directory(args.url)
+        output_directory=create_output_directory(args.url)
         args.output = os.path.join(output_directory, args.output)
    
         perform_scan(args)

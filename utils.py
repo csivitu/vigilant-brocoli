@@ -20,8 +20,6 @@ def fetch_url(url, headers=None, ignore_ssl=False, timeout=None, verbose=False):
         if 400 <= response.status_code < 500:
             return None  
         
-        sys.stdout.write(f"Scanning: {url}... ")
-        sys.stdout.flush()
         sys.stdout.write(f"Found! Status Code: {response.status_code}\n")
         sys.stdout.flush()
 

@@ -5,7 +5,7 @@ import os
 from utils import create_output_directory
 from reporting import log_summary, save_results
 
-def signal_handler(sig, frame):
+def signal_handler():
     
     print("\nProcess interrupted by user. Saving results and exiting...")
         

@@ -54,6 +54,9 @@ def parse_directories(args):
         file_name = args.dlist  
         with open(file_name, 'r') as f:
             return [line.strip() for line in f.readlines()]  
-    except FileNotFoundError as e:
-        error_logs.append(f"Directory list file not found: {e}")  
-        return []  
+    except FileNotFoundError:
+        error_logs.append(f"Directory list file not found: {file_name}")  
+        return []
+    except Exception as e:
+        error_logs.append(f"Error reading directory list file: {e}")  
+        return []

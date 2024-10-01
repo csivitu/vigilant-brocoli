@@ -12,20 +12,20 @@ def fetch_url(url, headers=None, ignore_ssl=False, timeout=None, verbose=False):
     
     try:
   
-        print(f"Scanning: {url}... ", end='', flush=True)
+        sys.stdout.write(f"Scanning: {url}... ")
+        sys.stdout.flush()
 
         response = requests.get(url, headers=headers, verify=not ignore_ssl, timeout=timeout, allow_redirects=True)
         
         if 400 <= response.status_code < 500:
             return None  
         
-        print(f"Scanning: {url}... ", end='', flush=True)
-
-        print(f"Found! Status Code: {response.status_code}\n", end='', flush=True)
+        sys.stdout.write(f"Found! Status Code: {response.status_code}\n")
+        sys.stdout.flush()
 
         if verbose:
             print_message(f"Fetched {url} with status {response.status_code}")
-        return url, response.status_code, len(response.content)  
+        return url, response.status_code
 
     except requests.RequestException as e:
         

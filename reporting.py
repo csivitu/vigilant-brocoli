@@ -15,7 +15,7 @@ def log_summary():
     
     print("\n--- Scan Summary ---")
     print(f"Total URLs scanned: {len(global_results)}")
-    if error_logs:
+    if not error_logs:
         print("No errors encountered.")
     else:
         print(f"Total Errors: {len(error_logs)}")

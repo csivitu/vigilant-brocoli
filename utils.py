@@ -18,10 +18,10 @@ def fetch_url(url, headers=None, ignore_ssl=False, timeout=None, verbose=False):
         response = requests.get(url, headers=headers, verify=not ignore_ssl, timeout=timeout, allow_redirects=True)
         
         if 400 <= response.status_code < 500:
+            sys.stdout.write("Client Error\n")
+            sys.stdout.flush()
             return None  
         
-        sys.stdout.write(f"Scanning: {url}... ")
-        sys.stdout.flush()
         sys.stdout.write(f"Found! Status Code: {response.status_code}\n")
         sys.stdout.flush()
 
@@ -55,6 +55,9 @@ def parse_directories(args):
         file_name = args.dlist  
         with open(file_name, 'r') as f:
             return [line.strip() for line in f.readlines()]  
-    except FileNotFoundError as e:
-        error_logs.append(f"Directory list file not found: {e}")  
-        return []  
+    except FileNotFoundError:
+        error_logs.append(f"Directory list file not found: {file_name}")  
+        return []
+    except Exception as e:
+        error_logs.append(f"Error reading directory list file: {e}")  
+        return []

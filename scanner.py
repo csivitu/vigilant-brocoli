@@ -10,7 +10,8 @@ def perform_scan(args):
     headers = {'User-Agent': args.useragent}  
     urls_to_scan = []  
     
-    print_message("Starting the scan on base URL:", base_url, verbose=args.verbose)
+    if args.verbose:
+        print_message("Starting the scan on base URL:", base_url)
     
     for directory in directories:
         full_url = f"{base_url}:{port}/{directory}"
@@ -25,8 +26,8 @@ def perform_scan(args):
                 result = future.result()
                 if result:  
                     global_results.append(result)
-
-    print_message("Scan completed", verbose=args.verbose)
+    if args.verbose:
+        print_message("Scan completed")
     
     from reporting import save_results
     save_results(global_results, args.output)

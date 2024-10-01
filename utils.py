@@ -4,10 +4,9 @@ from urllib.parse import urlparse
 from config import error_logs
 import sys
 
-def print_message(*args, verbose=False):
-
-    if verbose:
-        print("", " ".join(map(str, args)))
+def print_message(*args):
+        
+    print("", " ".join(map(str, args)))
 
 def fetch_url(url, headers=None, ignore_ssl=False, timeout=None, verbose=False):
     
@@ -20,10 +19,13 @@ def fetch_url(url, headers=None, ignore_ssl=False, timeout=None, verbose=False):
         if 400 <= response.status_code < 500:
             return None  
         
+        print(f"Scanning: {url}... ", end='', flush=True)
+
         print(f"Found! Status Code: {response.status_code}\n", end='', flush=True)
 
-        print_message(f"Fetched {url} with status {response.status_code}", verbose=verbose)
-        return url, response.status_code  
+        if verbose:
+            print_message(f"Fetched {url} with status {response.status_code}")
+        return url, response.status_code, len(response.content)  
 
     except requests.RequestException as e:
         
@@ -41,9 +43,7 @@ def create_output_directory(url):
 def parse_ports(url):
     
     parsed_url = urlparse(url)
-    if parsed_url.port:  
-        return parsed_url.port
-    return 443 if parsed_url.scheme == "https" else 80  
+    return parsed_url.port or 443 if parsed_url.scheme == "https" else 80  
 
 def parse_directories(args):
     

@@ -18,7 +18,7 @@ def main():
     signal.signal(signal.SIGINT, signal_handler)
     
     parser = argparse.ArgumentParser(description="URL and Directory Scanner")
-    parser.add_argument('-u', '--url', default="http://example.com", required=True, help="Base URL to scan (e.g., http://example.com)")  
+    parser.add_argument('-u', '--url', default="http://example.com", required=False, help="Base URL to scan (e.g., http://example.com)")  
     parser.add_argument('-d', '--dlist', required=True, help="Directory list file (e.g., common.txt)")  
     parser.add_argument('--useragent', default="Mozilla/5.0", help="User-agent string")  
     parser.add_argument('--ignorecertificate', action='store_true', help="Ignore SSL certificate errors")  

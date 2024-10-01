@@ -23,7 +23,7 @@ def main():
     parser.add_argument('-d', '--dlist', required=True, help="Directory list file (e.g., common.txt)")  
     parser.add_argument('--useragent', default="Mozilla/5.0", help="User-agent string")  
     parser.add_argument('--ignorecertificate', action='store_true', help="Ignore SSL certificate errors")  
-    parser.add_argument('--threads', type=int, default=-1, help="Number of threads for concurrent scanning")  
+    parser.add_argument('--threads', type=int, default=69, help="Number of threads for concurrent scanning")  
     parser.add_argument('--timeout', type=int, default=5, help="Timeout for requests (in seconds)")  
     parser.add_argument('--output', default="output.csv", help="Output CSV file for results")  
     parser.add_argument('--verbose', action='store_true', help="Enable verbose logging")  
@@ -35,7 +35,8 @@ def main():
         
         output_directory = create_output_directory(args.url)
         args.output = os.path.join(output_directory, args.output)
-   
+
+
         perform_scan(args)
     
         log_summary()

@@ -39,7 +39,8 @@ def create_output_directory(url):
     
     parsed_url = urlparse(url)  
     domain_dir = parsed_url.hostname.replace(".", "_")  
-    os.makedirs(domain_dir, exist_ok=True) 
+    os.makedirs(domain_dir, exist_ok=True)
+    return domain_dir
 
 def parse_ports(url):
     

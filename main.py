@@ -7,7 +7,7 @@ from reporting import log_summary, save_results
 
 def signal_handler(sig, frame):
     
-    print("\nProcess interrupted by user. Saving results and exiting...")
+    print("\nSaving results and generating Scan Summary...")
         
     from config import global_results  
     save_results(global_results, args.output)  
